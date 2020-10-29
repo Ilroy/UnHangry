@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Hunger</string>
+    <string name="home_discover_title">Discover</string>
+    <string name="home_search_bar_title">Hungry?</string>
+    <string name="home_discover_image_desc">new recipe</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_email_hint">Email</string>
+    <string name="sign_in_password_hint">Password:</string>
+    <string name="sign_in_button">Login</string>
+    <string name="sign_in_create_button">Create</string>
+    <string name="my_recipes_title">My Recipes</string>
+    <string name="recipe_name">Eggs Benedict</string>
+    <string name="recipe_details_title">Recipe Name</string>
+    <string name="recipe_details_item_name">test</string>
+    <string name="item_image_description">Recipe Image</string>
+    <string name="fragment_gallery_retry">Retry</string>
+    <string name="fragment_gallery_error">Results not loading...</string>
+    <string name="gallery_no_results">No results found</string>
+    <string name="gallery_menu_title">Search</string>
+</resources>
