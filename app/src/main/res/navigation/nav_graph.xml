@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/recipeGalleryFragment">
+
+    <fragment
+        android:id="@+id/recipeGalleryFragment"
+        android:name="com.example.hunger.ui.recipe_gallery.RecipeGalleryFragment"
+        android:label="fragment_recipe_gallery"
+        tools:layout="@layout/fragment_recipe_gallery" />
+</navigation>
