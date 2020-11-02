@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.hunger.databinding.FragmentRecipeGalleryBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RecipeGalleryFragment extends Fragment {
     private FragmentRecipeGalleryBinding recipeGalleryBinding;
     @Nullable
