@@ -15,6 +15,14 @@ public class Recipe  implements Parcelable {
    private List<String> dishTypes;
    private List<Ingredient> extendedIngredients;
 
+   public int getId() {
+      return id;
+   }
+
+   public void setId(int id) {
+      this.id = id;
+   }
+
    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>(){
       public Recipe createFromParcel(Parcel in){
          return new Recipe(in);
