@@ -16,7 +16,7 @@ public interface SpoonacularApi {
             SpoonacularConstants.API_HOST+": "+SpoonacularConstants.API_HOST_VALUE
             ,SpoonacularConstants.API_KEY+": "+SpoonacularConstants.API_KEY_VALUE})
     @GET("recipes/random")
-    Call<List<Recipe>> getRandomRecipes(@Query("number") int numOfRecipes);
+    Call<List<Recipe>> getRandomRecipes();
 
     @GET("recipes/findByIngredients")
     Call<List<Recipe>> getRecipesByIngredients(
