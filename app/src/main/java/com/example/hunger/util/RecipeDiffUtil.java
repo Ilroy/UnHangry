@@ -5,14 +5,16 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.hunger.models.Recipe;
 
-public class RecipeDiffUtil extends DiffUtil.ItemCallback<Recipe> {
+public class RecipeDiffUtil extends DiffUtil.ItemCallback<Recipe>{
+
     @Override
     public boolean areItemsTheSame(@NonNull Recipe oldItem, @NonNull Recipe newItem) {
-        return false;
+
+        return oldItem.getId() == newItem.getId();
     }
 
     @Override
     public boolean areContentsTheSame(@NonNull Recipe oldItem, @NonNull Recipe newItem) {
-        return false;
+        return oldItem.equals(newItem);
     }
 }

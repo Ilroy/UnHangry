@@ -1,5 +1,7 @@
 package com.example.hunger.ui.recipe_gallery;
 
+import android.util.Log;
+
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -14,6 +16,7 @@ public class RecipeViewModel extends ViewModel {
     private RecipeRepository recipeRepository;
     private MutableLiveData<List<Recipe>> recipes;
 
+
     @ViewModelInject
     public RecipeViewModel(RecipeRepository recipeRepository){
         super();
@@ -21,11 +24,7 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public LiveData<List<Recipe>> getRandomRecipes(){
-        if (recipes== null){
-            recipes = new MutableLiveData<>();
-            recipes = (MutableLiveData<List<Recipe>>) recipeRepository.getRandomRecipes();
-        }
-        return recipes;
+       return recipeRepository.getRandomRecipes();
     }
 
 }

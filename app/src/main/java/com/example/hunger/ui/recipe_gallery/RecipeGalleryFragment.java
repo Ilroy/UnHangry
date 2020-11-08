@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hunger.databinding.FragmentRecipeGalleryBinding;
 
-import java.util.ArrayList;
+
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -22,29 +22,23 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class RecipeGalleryFragment extends Fragment {
 
     private RecipeViewModel recipeVm;
-    private FragmentRecipeGalleryBinding _binding = null;
-    @NonNull
-    private FragmentRecipeGalleryBinding recipeGalleryBinding =  _binding;
+
+    private FragmentRecipeGalleryBinding recipeGalleryBinding =  null;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        _binding = FragmentRecipeGalleryBinding.bind(view);
+        recipeGalleryBinding = FragmentRecipeGalleryBinding.bind(view);
         recipeVm = new ViewModelProvider(this).get(RecipeViewModel.class);
 
         RecyclerView recyclerView = recipeGalleryBinding.galleryRecycleView;
-        RecipeGalleryAdapter adapter = new RecipeGalleryAdapter(new ArrayList<>());
+        RecipeGalleryAdapter adapter = new RecipeGalleryAdapter();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-
-        recipeVm.getRandomRecipes().observe(getViewLifecycleOwner(), recipes -> {
-            //TODO: SHOW IN RECYCLE VIEW
-
-
-        });
+        recipeVm.getRandomRecipes().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 
     @Nullable
@@ -58,6 +52,6 @@ public class RecipeGalleryFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        _binding = null;
+        recipeGalleryBinding = null;
     }
 }

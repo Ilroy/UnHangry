@@ -1,26 +1,26 @@
 package com.example.hunger.ui.recipe_gallery;
 
-import android.graphics.drawable.Drawable;
+
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
+
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hunger.R;
 import com.example.hunger.databinding.RecipeItemPhotoBinding;
 import com.example.hunger.models.Recipe;
+import com.example.hunger.util.RecipeDiffUtil;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
-import java.util.List;
+public class RecipeGalleryAdapter extends ListAdapter<Recipe,RecipeGalleryAdapter.RecipeViewHolder> {
 
-public class RecipeGalleryAdapter extends RecyclerView.Adapter<RecipeGalleryAdapter.RecipeViewHolder> {
-    List<Recipe> recipes;
-
-    public RecipeGalleryAdapter(List<Recipe> recipes){
-        this.recipes = recipes;
+    protected RecipeGalleryAdapter() {
+        super(new RecipeDiffUtil());
     }
 
     @NonNull
@@ -33,17 +33,12 @@ public class RecipeGalleryAdapter extends RecyclerView.Adapter<RecipeGalleryAdap
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        Recipe currentRecipe = recipes.get(position);
+        Recipe currentRecipe = getItem(position);
 
         if(currentRecipe != null){
             holder.bind(currentRecipe);
         }
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return recipes.size();
     }
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
@@ -56,6 +51,7 @@ public class RecipeGalleryAdapter extends RecyclerView.Adapter<RecipeGalleryAdap
         public void bind(Recipe recipe){
             Picasso.with(binding.getRoot().getContext())
                     .load(recipe.getImageUrl())
+                    .fit()
                     .centerCrop()
                     .error(R.drawable.ic_baseline_cancel_24)
                     .into(binding.itemImage);

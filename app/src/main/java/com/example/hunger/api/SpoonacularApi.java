@@ -12,13 +12,11 @@ import retrofit2.http.Query;
 
 public interface SpoonacularApi {
 
-    @Headers({
-            SpoonacularConstants.API_HOST+": "+SpoonacularConstants.API_HOST_VALUE
-            ,SpoonacularConstants.API_KEY+": "+SpoonacularConstants.API_KEY_VALUE})
-    @GET("recipes/random")
-    Call<List<Recipe>> getRandomRecipes();
+    @Headers({SpoonacularConstants.API_KEY+":"+SpoonacularConstants.API_KEY_VALUE})
+    @GET("random")
+    Call<SpoonacularResponse> getRandomRecipes(@Query("number") int numOfResults);
 
-    @GET("recipes/findByIngredients")
+    @GET("findByIngredients")
     Call<List<Recipe>> getRecipesByIngredients(
             @Query("ingredients") String ingredients
             , @Query("number") int numOfRecipes);
