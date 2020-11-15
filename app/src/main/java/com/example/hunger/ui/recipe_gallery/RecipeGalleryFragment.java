@@ -9,12 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hunger.databinding.FragmentRecipeGalleryBinding;
+import com.example.hunger.models.Recipe;
 
 
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -38,6 +41,7 @@ public class RecipeGalleryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+        LiveData<List<Recipe>> randomRecipes = recipeVm.getRandomRecipes();
         recipeVm.getRandomRecipes().observe(getViewLifecycleOwner(), adapter::submitList);
     }
 

@@ -4,9 +4,11 @@ package com.example.hunger.ui.recipe_gallery;
 import android.util.Log;
 import android.view.LayoutInflater;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +17,10 @@ import com.example.hunger.R;
 import com.example.hunger.databinding.RecipeItemPhotoBinding;
 import com.example.hunger.models.Recipe;
 import com.example.hunger.util.RecipeDiffUtil;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class RecipeGalleryAdapter extends ListAdapter<Recipe,RecipeGalleryAdapter.RecipeViewHolder> {
 
@@ -54,9 +59,21 @@ public class RecipeGalleryAdapter extends ListAdapter<Recipe,RecipeGalleryAdapte
                     .fit()
                     .centerCrop()
                     .error(R.drawable.ic_baseline_cancel_24)
-                    .into(binding.itemImage);
+                    .into(binding.itemImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            binding.itemProgressBar.setVisibility(View.GONE);
+                            binding.itemName.setText(recipe.getTitle());
+                        }
 
-            binding.itemName.setText(recipe.getTitle());
+                        @Override
+                        public void onError() {
+                            binding.itemProgressBar.setVisibility(View.GONE);
+
+                        }
+                    });
+
+
 
         }
     }

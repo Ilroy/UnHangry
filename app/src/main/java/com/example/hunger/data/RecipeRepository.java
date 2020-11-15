@@ -10,6 +10,7 @@ import com.example.hunger.api.SpoonacularResponse;
 import com.example.hunger.models.Recipe;
 import com.example.hunger.util.SpoonacularConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,8 +30,8 @@ public class RecipeRepository {
     }
 
     public LiveData<List<Recipe>> getRandomRecipes(){
-        Log.d("API_CALL", "getRandomRecipes: "+ "BEFORE CALL");
         MutableLiveData<List<Recipe>> randomRecipes = new MutableLiveData<>();
+        randomRecipes.setValue(new ArrayList<>());
         spoonacularApi.getRandomRecipes(SpoonacularConstants.MAX_RANDOM_RECIPES).enqueue(new Callback<SpoonacularResponse>() {
             @Override
             public void onResponse(Call<SpoonacularResponse> call, Response<SpoonacularResponse> response) {
@@ -41,6 +42,9 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<SpoonacularResponse> call, Throwable t) {
+                // NOTIFY VIEW OF ERROR
+                randomRecipes.setValue(null);
+
 
             }
         });
