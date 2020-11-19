@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hunger.api.SpoonacularApi;
 import com.example.hunger.api.SpoonacularResponse;
 import com.example.hunger.models.Recipe;
+import com.example.hunger.models.SearchRecipe;
 import com.example.hunger.util.SpoonacularConstants;
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class RecipeRepository {
 
     public LiveData<List<Recipe>> getRandomRecipes(){
         MutableLiveData<List<Recipe>> randomRecipes = new MutableLiveData<>();
-        randomRecipes.setValue(new ArrayList<>());
-        spoonacularApi.getRandomRecipes(SpoonacularConstants.MAX_RANDOM_RECIPES).enqueue(new Callback<SpoonacularResponse>() {
+        spoonacularApi.getRandomRecipes(SpoonacularConstants.MAX_RANDOM_RECIPES)
+                .enqueue(new Callback<SpoonacularResponse>() {
             @Override
             public void onResponse(Call<SpoonacularResponse> call, Response<SpoonacularResponse> response) {
                 if(response.isSuccessful() && response.body() != null){
@@ -42,14 +43,29 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<SpoonacularResponse> call, Throwable t) {
-                // NOTIFY VIEW OF ERROR
-                randomRecipes.setValue(null);
-
-
             }
         });
 
         return randomRecipes;
+    }
+
+    public LiveData<List<SearchRecipe>> getQueryRecipes(String query){
+        MutableLiveData<List<SearchRecipe>> searchedRecipes = new MutableLiveData<>();
+        spoonacularApi.getRecipesByIngredients(query,SpoonacularConstants.MAX_SEARCHED_RECIPES)
+                .enqueue(new Callback<List<SearchRecipe>>() {
+            @Override
+            public void onResponse(Call<List<SearchRecipe>> call, Response<List<SearchRecipe>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    searchedRecipes.setValue(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SearchRecipe>> call, Throwable t) {
+
+            }
+        });
     }
 
 }

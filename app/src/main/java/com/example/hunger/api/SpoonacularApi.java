@@ -1,6 +1,7 @@
 package com.example.hunger.api;
 
 import com.example.hunger.models.Recipe;
+import com.example.hunger.models.SearchRecipe;
 import com.example.hunger.util.SpoonacularConstants;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface SpoonacularApi {
     Call<SpoonacularResponse> getRandomRecipes(@Query("number") int numOfResults);
 
     @GET("findByIngredients")
-    Call<List<Recipe>> getRecipesByIngredients(
+    Call<List<SearchRecipe>> getRecipesByIngredients(
             @Query("ingredients") String ingredients
             , @Query("number") int numOfRecipes);
 }

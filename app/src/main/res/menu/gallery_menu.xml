@@ -7,6 +7,6 @@
         android:icon="@drawable/ic_baseline_image_search_24"
         android:title="@string/gallery_menu_title"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/>.
+        app:showAsAction="ifRoom|collapseActionView"/>
 
 </menu>

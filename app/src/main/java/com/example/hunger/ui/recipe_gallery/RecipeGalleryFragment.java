@@ -2,17 +2,22 @@ package com.example.hunger.ui.recipe_gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hunger.R;
 import com.example.hunger.databinding.FragmentRecipeGalleryBinding;
 import com.example.hunger.models.Recipe;
 
@@ -51,6 +56,31 @@ public class RecipeGalleryFragment extends Fragment {
         recipeGalleryBinding = FragmentRecipeGalleryBinding.inflate(inflater,container,false);
 
         return recipeGalleryBinding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.gallery_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.gallery_menu_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query != null){
+
+                }
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // do nothing on query change
+                return true;
+            }
+        });
+
     }
 
     @Override

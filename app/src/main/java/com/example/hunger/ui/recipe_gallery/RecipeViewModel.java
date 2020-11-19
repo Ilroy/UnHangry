@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.hunger.data.RecipeRepository;
 import com.example.hunger.models.Recipe;
+import com.example.hunger.models.SearchRecipe;
 
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class RecipeViewModel extends ViewModel {
 
     public LiveData<List<Recipe>> getRandomRecipes(){
        return recipeRepository.getRandomRecipes();
+    }
+
+    public LiveData<List<SearchRecipe>> getQueryRecipes(String query){
+
     }
 
 }
