@@ -1,6 +1,7 @@
 package com.example.hunger.ui.recipe_gallery;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class RecipeGalleryFragment extends Fragment {
 
     private RecipeViewModel recipeVm;
+    private RecipeGalleryAdapter adapter;
 
     private FragmentRecipeGalleryBinding recipeGalleryBinding =  null;
 
@@ -41,13 +44,14 @@ public class RecipeGalleryFragment extends Fragment {
         recipeVm = new ViewModelProvider(this).get(RecipeViewModel.class);
 
         RecyclerView recyclerView = recipeGalleryBinding.galleryRecycleView;
-        RecipeGalleryAdapter adapter = new RecipeGalleryAdapter();
+        adapter = new RecipeGalleryAdapter();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        LiveData<List<Recipe>> randomRecipes = recipeVm.getRandomRecipes();
-        recipeVm.getRandomRecipes().observe(getViewLifecycleOwner(), adapter::submitList);
+        //LiveData<List<Recipe>> randomRecipes = recipeVm.getRandomRecipes();
+        recipeVm.getRandomRecipes().observe(getViewLifecycleOwner(), recipes -> adapter.submitList(recipes));
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -69,18 +73,23 @@ public class RecipeGalleryFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query != null){
-
+                if (query != null) {
+                    Log.d("SEARCH_SUBMIT", "onQueryTextSubmit: "+query);
+                    recipeGalleryBinding.galleryRecycleView.scrollToPosition(0);
+                    recipeVm.getQueryRecipes(query)
+                            .observe(getViewLifecycleOwner()
+                                    , recipes -> adapter.submitList(recipes));
+                    searchView.clearFocus();
                 }
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // do nothing on query change
+                Log.d("SEARCH_CHANGE", "onQueryTextChange: "+newText);
                 return true;
             }
         });
-
     }
 
     @Override

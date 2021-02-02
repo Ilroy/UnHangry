@@ -8,10 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hunger.api.SpoonacularApi;
 import com.example.hunger.api.SpoonacularResponse;
 import com.example.hunger.models.Recipe;
-import com.example.hunger.models.SearchRecipe;
 import com.example.hunger.util.SpoonacularConstants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,23 +47,27 @@ public class RecipeRepository {
         return randomRecipes;
     }
 
-    public LiveData<List<SearchRecipe>> getQueryRecipes(String query){
-        MutableLiveData<List<SearchRecipe>> searchedRecipes = new MutableLiveData<>();
+    public LiveData<List<Recipe>> getQueryRecipes(String query){
+        Log.d("SEARCH", "getQueryRecipes: in repo query recipe");
+        MutableLiveData<List<Recipe>> searchedRecipes = new MutableLiveData<>();
         spoonacularApi.getRecipesByIngredients(query,SpoonacularConstants.MAX_SEARCHED_RECIPES)
-                .enqueue(new Callback<List<SearchRecipe>>() {
+                .enqueue(new Callback<List<Recipe>>() {
             @Override
-            public void onResponse(Call<List<SearchRecipe>> call, Response<List<SearchRecipe>> response) {
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 if(response.isSuccessful() && response.body() != null){
                     searchedRecipes.setValue(response.body());
+                    Log.d("SEARCH", "onResponse: "+response.body().size());
                 }
 
             }
 
             @Override
-            public void onFailure(Call<List<SearchRecipe>> call, Throwable t) {
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.d("SEARCH", "onFailure: failed");
 
             }
         });
+        return searchedRecipes;
     }
 
 }

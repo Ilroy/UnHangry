@@ -1,5 +1,7 @@
 package com.example.hunger.ui.recipe_gallery;
 
+
+
 import android.util.Log;
 
 import androidx.hilt.lifecycle.ViewModelInject;
@@ -9,7 +11,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.hunger.data.RecipeRepository;
 import com.example.hunger.models.Recipe;
-import com.example.hunger.models.SearchRecipe;
 
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class RecipeViewModel extends ViewModel {
        return recipeRepository.getRandomRecipes();
     }
 
-    public LiveData<List<SearchRecipe>> getQueryRecipes(String query){
+    public LiveData<List<Recipe>> getQueryRecipes(String query){
+        Log.d("SEARCH", "getQueryRecipes: calling repo");
+        return recipeRepository.getQueryRecipes(query);
 
     }
 

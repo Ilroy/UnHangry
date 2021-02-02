@@ -1,15 +1,14 @@
 package com.example.hunger.ui.recipe_gallery;
 
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DiffUtil;
+
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,7 @@ import com.example.hunger.util.RecipeDiffUtil;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+
 
 public class RecipeGalleryAdapter extends ListAdapter<Recipe,RecipeGalleryAdapter.RecipeViewHolder> {
 
